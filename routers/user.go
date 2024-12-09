@@ -18,5 +18,6 @@ func AddUserRoutes(router *gin.Engine) {
 		auth.POST("/login", userController.Login)
 		auth.GET("/getinfo", middleware.RequireAuth, userController.GetInfo)
 		auth.GET("/logout", middleware.RequireAuth, userController.Logout)
+		auth.GET("/userproducts/:id", middleware.RequireAuth, userController.GetAllProductOfTheUser)
 	}
 }

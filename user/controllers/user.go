@@ -2,13 +2,14 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
-	"github.com/anandtiwari11/IEKart-go/user/models"
+	userModel "github.com/anandtiwari11/IEKart-go/user/models"
 	"github.com/gin-gonic/gin"
 )
 
 func (userController *UserController) Signup(c *gin.Context) {
-    var input models.User
+    var input userModel.User
     if err := c.ShouldBindJSON(&input); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
         return
@@ -33,7 +34,7 @@ func (userController *UserController) Signup(c *gin.Context) {
 
 
 func (userController *UserController) Login(c *gin.Context) {
-	var input models.LoginUser
+	var input userModel.LoginUser
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error" : "invalid request"})
 		return
@@ -62,4 +63,18 @@ func (userController *UserController) GetInfo(c *gin.Context) {
         return
     }
     c.JSON(http.StatusOK, gin.H{"user": user})
+}
+
+func (userController *UserController) GetAllProductOfTheUser(c *gin.Context) {
+    userIdStr := c.Param("id")
+    userId, err := strconv.ParseUint(userIdStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid user ID"})
+		return
+	}
+    product, err := userController.UserService.GetAllProductOfTheUser(uint(userId))
+    if err != nil {
+        c.JSON(http.StatusNotFound, gin.H{"error" : err.Error()})
+    }
+    c.JSON(http.StatusOK, gin.H{"message" : product})
 }

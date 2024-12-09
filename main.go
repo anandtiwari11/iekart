@@ -17,5 +17,6 @@ func main() {
 		ctx.Next()
 	})
 	routers.AddUserRoutes(router)
+	routers.AddProductRoutes(router)
 	log.Fatal(router.Run(":8080"))
 }
