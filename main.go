@@ -1,22 +1,25 @@
 package main
 
 import (
+	"context"
 	"log"
 
+	dependencyinjection "github.com/anandtiwari11/IEKart-go/dependencyInjection"
 	"github.com/anandtiwari11/IEKart-go/initializers"
-	"github.com/anandtiwari11/IEKart-go/routers"
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	initializers.ConnectDB()
-
-	router := gin.Default()
-	router.Use(func(ctx *gin.Context) {
-		ctx.Set("library", initializers.DB)
-		ctx.Next()
-	})
-	routers.AddUserRoutes(router)
-	routers.AddProductRoutes(router)
-	log.Fatal(router.Run(":8080"))
+	app := dependencyinjection.LoadDependencies()
+	ctx := context.Background()
+	startErr := app.Start(ctx)
+	if startErr != nil {
+		log.Fatalf("Error starting application: %v", startErr)
+	}
+	defer func() {
+		if err := app.Stop(ctx); err != nil {
+			log.Fatalf("Error stopping application: %v", err)
+		}
+	}()
+	select {}
 }

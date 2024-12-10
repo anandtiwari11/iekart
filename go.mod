@@ -5,6 +5,7 @@ go 1.23.1
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt/v4 v4.5.1
+	go.uber.org/fx v1.23.0
 	golang.org/x/crypto v0.23.0
 	gorm.io/driver/sqlite v1.5.6
 	gorm.io/gorm v1.25.10
@@ -35,6 +36,9 @@ require (
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
+	go.uber.org/dig v1.18.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
+	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
