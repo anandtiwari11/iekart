@@ -59,3 +59,7 @@ func (userService *UserService) GenerateJWT(email string) (string, error) {
 func (userService *UserService) GetAllProductOfTheUser(userId uint) (*[]productModel.Product, error) {
 	return userService.UserDao.GetAllProductOfTheUser(userId)
 }
+
+func (userService *UserService) GetBookedProducts(userId uint) (*[]productModel.Product, error) {
+	return userService.UserDao.GetBookedProducts(userId)
+}

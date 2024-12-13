@@ -10,4 +10,5 @@ type IUserDAO interface {
 	FindUserByEmail(username string) (*userModel.User, error)
 	CreateUser(user *userModel.User) error
 	GetAllProductOfTheUser(userId uint) (*[]productModel.Product, error)
+	GetBookedProducts(userId uint) (*[]productModel.Product, error)
 }

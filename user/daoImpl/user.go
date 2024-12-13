@@ -46,3 +46,11 @@ func (dao *UserDAOImpl) GetAllProductOfTheUser(userId uint) (*[]productModel.Pro
     }
     return &products, nil
 }
+
+func (dao *UserDAOImpl) GetBookedProducts(userId uint) (*[]productModel.Product, error) {
+    var products []productModel.Product
+    if err := initializers.DB.Select("booked_by_id = ?", userId).Find(&products).Error; err != nil {
+        return nil, fmt.Errorf("no products found for user ID %d: %w", userId, err)
+    }
+    return &products, nil
+}

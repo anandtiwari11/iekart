@@ -38,8 +38,8 @@ func (productService *ProductService) GetProductDetailsByProductId(productId uin
 	return productService.ProductDao.GetProductDetailsByProductId(productId)
 }
 
-func (productService *ProductService) DeleteProductByID(productId uint) error {
-	return productService.ProductDao.DeleteProductByID(productId)
+func (productService *ProductService) DeleteProductByID(productId uint, userId uint) error {
+	return productService.ProductDao.DeleteProductByID(productId, userId)
 }
 
 func (productService *ProductService) BookProduct(productId uint, user *userModel.User) error {

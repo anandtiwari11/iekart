@@ -36,7 +36,7 @@ func (dao *daoImpl) GetProductDetailsByProductId(productId uint) (*productModel.
 	return &product, nil
 }
 
-func (dao *daoImpl) DeleteProductByID(productId uint) error {
+func (dao *daoImpl) DeleteProductByID(productId uint, userId uint) error {
 	return initializers.DB.Transaction(func(tx *gorm.DB) error {
 		var product productModel.Product
 		if err := tx.First(&product, "id = ?", productId).Error; err != nil {
@@ -44,6 +44,9 @@ func (dao *daoImpl) DeleteProductByID(productId uint) error {
 				return fmt.Errorf("product with ID %d not found", productId)
 			}
 			return fmt.Errorf("failed to find product: %v", err)
+		}
+		if product.SellerID != userId {
+			return fmt.Errorf("user not authenticated to delete this product")
 		}
 		if err := tx.Delete(&product).Error; err != nil {
 			return fmt.Errorf("failed to delete product: %v", err)

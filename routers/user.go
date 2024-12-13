@@ -13,4 +13,5 @@ func RegisterUserRoutes(engine *gin.Engine, userController *controllers.UserCont
 	authRoutes.GET("/getinfo", middleware.RequireAuth, userController.GetInfo)
 	authRoutes.GET("/logout", middleware.RequireAuth, userController.Logout)
 	authRoutes.GET("/userproducts/:id", middleware.RequireAuth, userController.GetAllProductOfTheUser)
+	authRoutes.GET("/booked-products", middleware.RequireAuth, userController.GetBookedProducts)
 }

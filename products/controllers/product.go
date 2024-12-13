@@ -54,7 +54,13 @@ func (productController *ProductController) DeleteProduct(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
 		return
 	}
-	if err := productController.ProductService.DeleteProductByID(uint(productId)); err != nil {
+	userIdStr := c.Param("id")
+	userId, err := strconv.ParseUint(userIdStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+	if err := productController.ProductService.DeleteProductByID(uint(productId), uint(userId)); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "failed to delete product1"})
 		return
 	}

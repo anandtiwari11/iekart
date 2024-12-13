@@ -8,6 +8,7 @@ type User struct {
 	ID        uint      `json:"user_id"`
 	Name      string    `json:"name"`
 	Username  string    `json:"username"`
+	CollegeID uint      `json:"college_id"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
 	IsActive  bool      `json:"is_active"`

@@ -8,7 +8,7 @@ import (
 type IProductIntf interface {
 	CreateProduct(req *productModel.ProductReq, user *userModel.User) error
 	GetProductDetailsByProductId(productId uint) (*productModel.Product, error)
-	DeleteProductByID(productId uint) error
+	DeleteProductByID(productId uint, userId uint) error
 	BookProduct(productId uint, user *userModel.User) error
 	BuyProduct(productId uint, user *userModel.User) error
 }

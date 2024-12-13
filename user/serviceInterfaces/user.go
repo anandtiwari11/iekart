@@ -12,4 +12,5 @@ type IUserServiceInterface interface {
 	GenerateToken(user userModel.LoginUser) string
 	GenerateJWT(email string) (string, error)
 	GetAllProductOfTheUser(userId uint) (*[]productModel.Product, error)
+	GetBookedProducts(userId uint) (*[]productModel.Product, error)
 }

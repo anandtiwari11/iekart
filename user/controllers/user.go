@@ -78,3 +78,14 @@ func (userController *UserController) GetAllProductOfTheUser(c *gin.Context) {
     }
     c.JSON(http.StatusOK, gin.H{"message" : product})
 }
+
+func (userController *UserController) GetBookedProducts(c *gin.Context) {
+    userIdStr := c.Param("id")
+    userId, err := strconv.ParseUint(userIdStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid user ID"})
+		return
+	}
+    product, err := userController.UserService.GetBookedProducts(uint(userId))
+    c.JSON(http.StatusOK, gin.H{"message" : product})
+}
